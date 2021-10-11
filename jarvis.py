@@ -3,7 +3,7 @@ import speech_recognition as sr
 import datetime
 import pyjokes
 import webbrowser
-import sys
+
 import wikipedia
 from selenium import webdriver
 
@@ -13,7 +13,7 @@ engine = pyttsx3.init("sapi5")
 
 "VOICE"""
 voices = engine.getProperty('voices')       #getting details of current voice
-engine.setProperty('voice', voices[0].id)#changing index, changes voices. 0 for male
+engine.setProperty('voice', voices[1].id)#changing index, changes voices. 0 for male
 
 """VOLUME"""
 engine.setProperty('volume',5)    # setting up volume level  between 0 and 1
@@ -33,7 +33,7 @@ def intro():
     elif 12 <= currentTime.hour < 18:
         engine.say('Good afternoon sir')
     else:
-        engine.say('Good evening sir')
+        engine.say('Good evening sir . mam')
     engine.say("I am jarvis . And how may i help you ")
     engine.runAndWait()
 intro()
@@ -64,22 +64,6 @@ def run_jarvis():
         print(results)
         talk(results)
 
-    elif "play" in command:
-        import time
-        song = command.replace('play', '')
-        talk("playing song on youtube"+song)
-        driver = webdriver.Chrome(executable_path="A:\python\chromedriver.exe")
-        driver.maximize_window()
-        driver.get("https://www.youtube.com/")
-        time.sleep(4)
-        search=driver.find_element_by_xpath("/html/body/ytd-app/div/div/ytd-masthead/div[3]/div[2]/ytd-searchbox/form/div/div[1]/input")
-        search_b=driver.find_element_by_xpath("/html/body/ytd-app/div/div/ytd-masthead/div[3]/div[2]/ytd-searchbox/form/button")
-        search.send_keys(song)
-        time.sleep(2)
-        search_b.click()
-        talk("select song you want to play. enjoy the world of music")
-        time.sleep(1000)
-
     elif 'joke' in command:
         talk(pyjokes.get_joke())
 
@@ -89,7 +73,7 @@ def run_jarvis():
 
     elif "stop" in command:
         talk("thankyou sir . have a nice day ")
-        sys.exit()
+        quit()
 
     elif "who are you" in command:
         talk(intro())
@@ -97,19 +81,19 @@ def run_jarvis():
     elif "hello" in command:
         talk("hello sir i am jarvis")
 
-    elif "developed" in command:
-        talk(" i am developed by atul sharma")
-
-    elif "develop" in command:
-        talk("i am developed by atul sharma")
+    # elif "developed" or "develop" in command:
+    #     talk(" i am developed by atul sharma")
 
     elif 'open google' in command:
+        talk("opening google.com")
         webbrowser.open("google.com")
 
     elif 'open youtube' in command:
+        talk("opening youtube.com")
         webbrowser.open("youtube.com")
 
     elif 'open google' in command:
+        talk("google.com")
         webbrowser.open("google.com")
 
     else:
